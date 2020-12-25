@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+	<!-- trunk macro definition -->
+	<xacro:macro name="hyq_trunk" params="name">
+	
+		<!-- Floating-base Joint -->
+		<joint name="floating_base" type="fixed">
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<parent link="${name}"/>
+			<child link="trunk"/>
+		</joint>
+
+		<!-- Footprint link -->
+		<link name="${name}">
+			<visual>
+				<geometry>
+					<cylinder length="0.01" radius="0.01"/>
+				</geometry>
+			</visual>
+		</link>
+		
+		<!-- Trunk link -->
+		<link name="trunk">
+			<inertial>
+            	<origin xyz="0 0 0" rpy="0 0 0"/>
+            	<mass value="0.4672" />
+            	<inertia ixx="0.0165793715222" ixy="0.0" ixz="0.0" iyy="0.064525" iyz="0.0" izz="00.0770543715223"/>
+        	</inertial>
+			
+			<visual>
+				<geometry>
+					<mesh filename="package://my_legged_robots_description/meshes/trunk/trunk.dae" scale="1 1 1"/>
+				</geometry>
+			</visual>
+			<collision>
+				<origin xyz="0 0 0" rpy="0 0 0"/>
+				<geometry>
+					<mesh filename="package://my_legged_robots_description/meshes/trunk/trunk.dae" scale="1 1 1"/>
+				</geometry>
+			</collision>
+		</link>
+		<gazebo reference="trunk">
+        	<kp>1000.0</kp>
+        	<kd>1000.0</kd>
+        	<mu1>0.5</mu1>
+        	<mu2>0.5</mu2>
+        	<material>Gazebo/Red</material>
+    </gazebo>
+
+
+	</xacro:macro>
+
+</robot>
